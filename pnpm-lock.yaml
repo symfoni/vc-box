@@ -2,7 +2,6 @@ lockfileVersion: 5.4
 
 specifiers:
   '@symfoni/did-resolver': ^4.0.2
-  '@symfoni/ethr-did-resolver': ^6.2.4
   '@types/node': ^18.8.5
   '@veramo/core': ^4.0.0
   '@veramo/credential-w3c': ^4.0.1
@@ -26,7 +25,6 @@ specifiers:
 
 dependencies:
   '@symfoni/did-resolver': 4.0.2
-  '@symfoni/ethr-did-resolver': 6.2.4
   '@veramo/core': 4.0.0
   '@veramo/credential-w3c': 4.0.2
   '@veramo/data-store': 4.0.2_ts-node@10.9.1
@@ -773,26 +771,6 @@ packages:
 
   /@symfoni/did-resolver/4.0.2:
     resolution: {integrity: sha512-T3DCQ4VKwPPlOiMl9qu3tqmu0YsOKGxkhYrNzTryHzBuIFJpWK6qpNsXWMD0wtObSIioLCQfNJf2IEhWIZBv6w==}
-    dev: false
-
-  /@symfoni/ethr-did-resolver/6.2.4:
-    resolution: {integrity: sha512-OPZFpcMAmsLSGJLWmQy2ZQJn9HFoEzfJBlhkoMg3Fyt3Vsf5hEQlEv3mDVMw9CoDl11eyWGNEvIrWKoVyorIWQ==}
-    dependencies:
-      '@ethersproject/abi': 5.7.0
-      '@ethersproject/abstract-signer': 5.7.0
-      '@ethersproject/address': 5.7.0
-      '@ethersproject/basex': 5.7.0
-      '@ethersproject/bignumber': 5.7.0
-      '@ethersproject/bytes': 5.7.0
-      '@ethersproject/contracts': 5.7.0
-      '@ethersproject/keccak256': 5.7.0
-      '@ethersproject/providers': 5.7.1
-      '@ethersproject/signing-key': 5.7.0
-      '@ethersproject/transactions': 5.7.0
-      did-resolver: 4.0.0
-    transitivePeerDependencies:
-      - bufferutil
-      - utf-8-validate
     dev: false
 
   /@tootallnate/once/2.0.0:

@@ -52,8 +52,8 @@ import { Chain, VCBoxArgs } from "./types.js";
 import { namespace, walletFromSecret } from "./utils.js";
 import { JsonFileStore } from "./veramo-json-file-store.js";
 
-// import {getResolver} from "ethr-did-resolver";
-// import {getResolver} from "@symfoni/ethr-did-resolver";
+import { getResolver } from "ethr-did-resolver";
+// import { getResolver } from "@symfoni/ethr-did-resolver";
 
 export type AgentConfig =
 	& IDIDManager
@@ -95,7 +95,7 @@ export class VCBox {
 	}
 
 	private static async getStore(dbName: string) {
-		if (global["window"] !== undefined && window.localStorage) {
+		if (global["window"] !== undefined && global.window.localStorage) {
 			return BrowserLocalStorageStore.fromLocalStorage(dbName);
 		} else {
 			return await JsonFileStore.fromFile(`${dbName}.json`);
@@ -149,8 +149,10 @@ export class VCBox {
 		if (!DEFAULT_CHAIN) {
 			throw Error("No default chain provided, one chain must be default");
 		}
+
 		const didResolver = await import("@symfoni/did-resolver");
-		const ethrResolver = await import("@symfoni/ethr-did-resolver");
+		// const ethrResolver = await import("ethr-did-resolver");
+
 		return {
 			plugins: [
 				new KeyManager({
@@ -189,7 +191,7 @@ export class VCBox {
 				}),
 				new DIDResolverPlugin({
 					resolver: new didResolver.Resolver({
-						...ethrResolver.getResolver({
+						...getResolver({
 							networks: chains.map(
 								(chain) => ({
 									chainId: chain.chainId,

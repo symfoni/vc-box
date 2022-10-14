@@ -5,12 +5,13 @@ import { config } from "dotenv";
 
 test.before("load env", (t) => {
 	const res = config();
-	t.log(res.parsed);
-	t.log(res.error);
-	t.log("Loaded env", process.env);
+	if (res.error) {
+		t.log("Error loading env", res.error);
+		t.fail();
+	}
 });
 
-test("NodeJs", async (t) => {
+test("vcBox", async (t) => {
 	t.log("process.env.mnemonic", process.env.mnemonic);
 	const vcBox = await VCBox.init({
 		dbName: "test",
@@ -18,7 +19,7 @@ test("NodeJs", async (t) => {
 		chains: [
 			{
 				default: true,
-				chainId: 1,
+				chainId: 31337,
 				provider: new ethers.providers.JsonRpcProvider(process.env.RPC!),
 			},
 		],

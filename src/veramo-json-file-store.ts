@@ -58,7 +58,11 @@ export class JsonFileStore implements VeramoJsonStore {
 		});
 		let cache: VeramoJsonCache;
 		try {
-			cache = JSON.parse(rawCache);
+			if (rawCache) {
+				cache = JSON.parse(rawCache);
+			} else {
+				cache = {};
+			}
 		} catch (error: unknown) {
 			console.log("Error parsing JSON file, busting cache.", error);
 			cache = {};
