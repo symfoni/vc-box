@@ -52,17 +52,16 @@ import { Chain, VCBoxArgs } from "./types.js";
 import { namespace, walletFromSecret } from "./utils.js";
 import { JsonFileStore } from "./veramo-json-file-store.js";
 
-import { getResolver } from "ethr-did-resolver";
+// import { getResolver } from "ethr-did-resolver";
 // import { getResolver } from "@symfoni/ethr-did-resolver";
 
-export type AgentConfig =
-	& IDIDManager
-	& IKeyManager
-	& IDataStore
-	& IDataStoreORM
-	& IResolver
-	& IMessageHandler
-	& ICredentialPlugin;
+export type AgentConfig = IDIDManager &
+	IKeyManager &
+	IDataStore &
+	IDataStoreORM &
+	IResolver &
+	IMessageHandler &
+	ICredentialPlugin;
 export type VeramoAgent = TAgent<AgentConfig>;
 
 export class VCBox {
@@ -151,7 +150,7 @@ export class VCBox {
 		}
 
 		const didResolver = await import("@symfoni/did-resolver");
-		// const ethrResolver = await import("ethr-did-resolver");
+		const ethrResolver = await import("ethr-did-resolver");
 
 		return {
 			plugins: [
@@ -191,14 +190,12 @@ export class VCBox {
 				}),
 				new DIDResolverPlugin({
 					resolver: new didResolver.Resolver({
-						...getResolver({
-							networks: chains.map(
-								(chain) => ({
-									chainId: chain.chainId,
-									provider: chain.provider,
-									registry: chain.didRegistry,
-								}),
-							),
+						...ethrResolver.getResolver({
+							networks: chains.map((chain) => ({
+								chainId: chain.chainId,
+								provider: chain.provider,
+								registry: chain.didRegistry,
+							})),
 						}),
 					}),
 				}),
