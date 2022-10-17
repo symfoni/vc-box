@@ -52,7 +52,7 @@ import { Chain, VCBoxArgs } from "./types.js";
 import { namespace, walletFromSecret } from "./utils.js";
 import { JsonFileStore } from "./veramo-json-file-store.js";
 
-// import { getResolver } from "ethr-did-resolver";
+import ethrResolver from "ethr-did-resolver";
 // import { getResolver } from "@symfoni/ethr-did-resolver";
 
 export type AgentConfig = IDIDManager &
@@ -150,7 +150,7 @@ export class VCBox {
 		}
 
 		const didResolver = await import("@symfoni/did-resolver");
-		const ethrResolver = await import("ethr-did-resolver");
+		// const ethrResolver = await import("ethr-did-resolver");
 
 		return {
 			plugins: [

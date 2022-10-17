@@ -1,4 +1,4 @@
-# Welcome
+# Welcome to Symfoni Verfiable Credentials tools.
 
 ## Development
 

@@ -16,9 +16,10 @@ specifiers:
   '@veramo/message-handler': ^4.0.0
   ava: ^4.3.3
   did-jwt-vc: ^3.1.0
+  did-resolver: ^4.0.0
   dotenv: ^16.0.3
   ethers: ^5.7.1
-  ethr-did-resolver: 7.0.0-alpha.2
+  ethr-did-resolver: 7.0.0-alpha.3
   jsdom: ^20.0.1
   ts-node: ^10.9.1
   typescript: ^4.8.4
@@ -37,8 +38,9 @@ dependencies:
   '@veramo/kms-local': 4.0.2
   '@veramo/message-handler': 4.0.0
   did-jwt-vc: 3.1.0
+  did-resolver: 4.0.0
   ethers: 5.7.1
-  ethr-did-resolver: 7.0.0-alpha.2
+  ethr-did-resolver: 7.0.0-alpha.3
 
 devDependencies:
   '@types/node': 18.8.5
@@ -1924,8 +1926,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /ethr-did-resolver/7.0.0-alpha.2:
-    resolution: {integrity: sha512-uLV4BFe/bdItSVbz0ioNT1SCl4JnorCO7Y9VKJmn+nWzCRZ42ihzazBylesChbeAvzl7d9PBEoo3MDj7JGDHfA==}
+  /ethr-did-resolver/7.0.0-alpha.3:
+    resolution: {integrity: sha512-TsTxR7WbOlCojAlS8Ft/hJJGwUgoVeY6ENJfuCAgAls6g68zOKHeOYXltYSSDyLA5DB6QvSe+eWGEAGY/wqkLA==}
     dependencies:
       '@ethersproject/abi': 5.7.0
       '@ethersproject/abstract-signer': 5.7.0
