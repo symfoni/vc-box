@@ -53,6 +53,7 @@ import { namespace, walletFromSecret } from "./utils.js";
 import { JsonFileStore } from "./veramo-json-file-store.js";
 
 import ethrResolver from "ethr-did-resolver";
+import { ethers } from "ethers";
 // import { getResolver } from "@symfoni/ethr-did-resolver";
 
 export type AgentConfig = IDIDManager &
@@ -145,6 +146,18 @@ export class VCBox {
 		const { storeEncryptKey, chains, store } = args;
 
 		const DEFAULT_CHAIN = chains.find((chain) => chain.default);
+		const PROVIDER = (chain: Chain) => {
+			if ("url" in chain.provider) {
+				return new ethers.providers.JsonRpcProvider(
+					chain.provider.url,
+					chain.provider.network,
+				);
+			} else if (chain.provider instanceof ethers.providers.Provider) {
+				return chain.provider;
+			} else {
+				throw Error("Invalid provider");
+			}
+		};
 		if (!DEFAULT_CHAIN) {
 			throw Error("No default chain provided, one chain must be default");
 		}
@@ -175,7 +188,7 @@ export class VCBox {
 								defaultKms: "local",
 								networks: [
 									{
-										provider: chain.provider,
+										provider: PROVIDER(chain),
 										chainId: chain.chainId,
 										registry: chain.didRegistry,
 									},
@@ -193,7 +206,7 @@ export class VCBox {
 						...ethrResolver.getResolver({
 							networks: chains.map((chain) => ({
 								chainId: chain.chainId,
-								provider: chain.provider,
+								provider: PROVIDER(chain),
 								registry: chain.didRegistry,
 							})),
 						}),

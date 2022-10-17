@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+import { ConnectionInfo } from "ethers/lib/utils.js";
 
 export type VCBoxArgs = {
 	storeEncryptKey?: string;
@@ -12,5 +13,7 @@ export type Chain = {
 	default: boolean;
 	chainId: number;
 	didRegistry?: string;
-	provider: ethers.providers.Provider;
+	provider:
+		| ethers.providers.Provider
+		| { url: ConnectionInfo | string; network?: ethers.providers.Networkish };
 };

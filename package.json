@@ -11,7 +11,7 @@
     "test": "pnpm ava",
     "watch": "pnpm tsc --watch",
     "build": "tsc --project tsconfig.build.json",
-    "release": "pnpm build && pnpm release-it -- patch -y"
+    "release": "pnpm build && pnpm release-it -- patch --ci"
   },
   "keywords": [],
   "author": "Robertosnap",
