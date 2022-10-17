@@ -4,7 +4,7 @@ import { VCBox } from "../src/index.js";
 import { config } from "dotenv";
 
 test.before("load env", (t) => {
-	if (process.env.NODE_ENV === "test") {
+	if (process.env.CI) {
 		t.pass("In test env");
 	} else {
 		const res = config();

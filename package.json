@@ -2,13 +2,13 @@
   "name": "@symfoni/vc-tools",
   "version": "0.0.8",
   "description": "",
-  "main": "./dist/index",
   "type": "module",
+  "exports": "./dist/index.js",
   "scripts": {
     "test": "pnpm ava",
     "watch": "pnpm tsc --watch",
-    "build": "tsc --project tsconfig.json",
-    "release": "pnpm release-it -- patch"
+    "build": "tsc --project tsconfig.build.json",
+    "release": "build && pnpm release-it -- patch"
   },
   "keywords": [],
   "author": "Robertosnap",
