@@ -4,6 +4,9 @@
   "description": "",
   "type": "module",
   "exports": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "pnpm ava",
     "watch": "pnpm tsc --watch",
