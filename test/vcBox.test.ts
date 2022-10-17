@@ -12,10 +12,10 @@ test.before("load env", (t) => {
 });
 
 test("vcBox", async (t) => {
-	t.log("process.env.mnemonic", process.env.mnemonic);
+	t.log("process.env.MNEMONIC", process.env.MNEMONIC);
 	const vcBox = await VCBox.init({
 		dbName: "test",
-		walletSecret: process.env.mnemonic!,
+		walletSecret: process.env.MNEMONIC!,
 		chains: [
 			{
 				default: true,
