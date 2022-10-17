@@ -6,11 +6,12 @@ import { config } from "dotenv";
 test.before("load env", (t) => {
 	console.log("process.env.NODE_ENV", process.env.NODE_ENV);
 	if (process.env.NODE_ENV === "test") {
-		return t.pass("In test env");
-	}
-	const res = config();
-	if (res.error) {
-		t.log("Error loading env", res.error);
+		t.pass("In test env");
+	} else {
+		const res = config();
+		if (res.error) {
+			t.log("Error loading env", res.error);
+		}
 	}
 });
 
