@@ -7,7 +7,6 @@ test.before("load env", (t) => {
 	const res = config();
 	if (res.error) {
 		t.log("Error loading env", res.error);
-		t.fail();
 	}
 });
 
