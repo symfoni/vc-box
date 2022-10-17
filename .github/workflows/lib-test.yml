@@ -41,3 +41,6 @@ jobs:
 
       - name: Test
         run: pnpm test
+        env:
+          RPC: https://eth-mainnet.public.blastapi.io
+          MNEMONIC: test test test test test test test test test test test junk
