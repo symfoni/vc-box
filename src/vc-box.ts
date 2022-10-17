@@ -73,7 +73,7 @@ export class VCBox {
 		this.identifier = identifier;
 	}
 
-	static async init(args: VCBoxArgs) {
+	protected static async setup(args: VCBoxArgs) {
 		const defaultChain = args.chains.find((chain) => chain.default);
 		if (!defaultChain) {
 			throw Error("No default chain provided, one chain must be default");
@@ -91,7 +91,7 @@ export class VCBox {
 			defaultChain,
 			{ alias: args.walletAlias },
 		);
-		return new VCBox(agent, identifier);
+		return { agent, identifier };
 	}
 
 	private static async getStore(dbName: string) {
@@ -120,7 +120,7 @@ export class VCBox {
 			});
 			return exsisitingIdentifier;
 		} catch (_error) {
-			console.log("Creating new DID", didId, "with alias", alias);
+			// console.log("Creating new DID", didId, "with alias", alias);
 			return await agent.didManagerImport({
 				keys: [
 					{
@@ -205,7 +205,7 @@ export class VCBox {
 					resolver: new didResolver.Resolver({
 						...ethrResolver.getResolver({
 							networks: chains.map((chain) => ({
-								chainId: chain.chainId,
+								chainId: chain.chainId.toString(),
 								provider: PROVIDER(chain),
 								registry: chain.didRegistry,
 							})),

@@ -2,8 +2,8 @@ import {
 	CredentialPayload,
 	IIdentifier,
 	PresentationPayload,
-	VerifiableCredential,
 } from "@veramo/core";
+import { VCBoxArgs } from "./types.js";
 import { VCBox, VeramoAgent } from "./vc-box.js";
 
 export class VCIssuer extends VCBox {
@@ -11,7 +11,12 @@ export class VCIssuer extends VCBox {
 		super(agent, identifier);
 	}
 
-	async createVC(_credential: CredentialPayload) {
+	static async init(args: VCBoxArgs) {
+		const { agent, identifier } = await super.setup(args);
+		return new VCIssuer(agent, identifier);
+	}
+
+	async createVC(_credential: Partial<CredentialPayload>) {
 		const credential: CredentialPayload = {
 			...{
 				issuer: this.identifier.did,
@@ -21,43 +26,20 @@ export class VCIssuer extends VCBox {
 			..._credential,
 		};
 		const vc = await this.agent.createVerifiableCredential({
-			credential: {
-				"@context": [
-					"https://www.w3.org/2018/credentials/v1",
-					"https://www.symfoni.dev/credentials/v1",
-				],
-				type: ["VerifiableCredential", "NorwegianIdNumber"],
-				credentialSubject: credential,
-				issuer: {
-					id: this.identifier.did,
-				},
-			},
+			credential: credential,
 			proofFormat: "jwt",
 		});
 		return vc;
 	}
 
-	async createVP(
-		_vcs: VerifiableCredential[],
-		_presentation: Omit<PresentationPayload, "verifiableCredential">,
-	) {
-		const vcs = _vcs.map((vc) => {
-			if (typeof vc === "object") {
-				return vc.proof.jwt as string;
-			}
-			if (typeof vc === "string") {
-				return vc;
-			}
-			throw Error(`Invalid VC type: ${typeof vc}`);
-		});
-		const presentation = {
+	async createVP(args: Partial<PresentationPayload>) {
+		const presentation: PresentationPayload = {
 			...{
 				"@context": ["https://www.w3.org/2018/credentials/v1"],
 				holder: this.identifier.did,
-				verifiableCredential: vcs,
 				type: ["VerifiablePresentation"],
 			},
-			..._presentation,
+			...args,
 		};
 		const vp = await this.agent.createVerifiablePresentation({
 			presentation,
