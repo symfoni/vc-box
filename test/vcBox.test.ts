@@ -4,6 +4,9 @@ import { VCBox } from "../src/index.js";
 import { config } from "dotenv";
 
 test.before("load env", (t) => {
+	if (process.env.NODE_ENV === "test") {
+		t.pass("In test env");
+	}
 	const res = config();
 	if (res.error) {
 		t.log("Error loading env", res.error);
