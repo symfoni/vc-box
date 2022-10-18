@@ -15,72 +15,11 @@ test.before("load env", (t) => {
 	}
 });
 
-test("verify credential goerli", async (t) => {
-	// console.log(process.env);
-	const args: Omit<VCBoxArgs, "dbName"> = {
-		walletSecret: process.env.MNEMONIC!,
-		chains: [
-			{
-				default: true,
-				chainId: 5,
-				provider: {
-					url: "https://eth-goerli.g.alchemy.com/v2/MWv0hh54YO82ISYuwhzpQdn8BbwwheJt",
-				},
-			},
-		],
-	};
-	const issuer = await VCIssuer.init({
-		...args,
-		dbName: `${t.title}-issuer`,
-	});
-	const vc = await issuer.createVC({
-		"@context": [
-			"https://www.w3.org/2018/credentials/v1",
-			"https://www.symfoni.dev/credentials/v1",
-		],
-		type: ["VerifiableCredential", "NorwegianIdNumber"],
-		credentialSubject: {
-			identityNumber: "123456789",
-		},
-	});
-
-	const verifier = await VCVerifier.init({
-		...args,
-		dbName: `db-${t.title}-verifier`,
-	});
-
-	const verifyVC = await verifier.verifyVC({
-		credential: vc.proof.jwt,
-	});
-
-	if (verifyVC.error) {
-		t.log("Error verifying VC", verifyVC.error);
-	}
-
-	t.truthy(verifyVC.verified, "VC should be verified");
-	t.is(verifyVC.error, undefined, "No error should be thrown");
-
-	const vp = await issuer.createVP({
-		verifiableCredential: [vc.proof.jwt],
-	});
-	const verifyVP = await verifier.verifyVP({
-		presentation: vp.proof.jwt,
-		policies: {
-			audience: false,
-		},
-	});
-	if (verifyVP.error) {
-		t.log("Error verifying VP", verifyVP);
-	}
-
-	t.truthy(verifyVP.verified, "VP should be verified");
-	t.is(verifyVP.error, undefined, "No error should be thrown");
-	await issuer.removeStore();
-	await verifier.removeStore();
-});
-
 test("verify credential hardhat", async (t) => {
-	// console.log(process.env);
+	if (process.env.CI) {
+		t.pass("Cant test local network in CI");
+		return;
+	}
 	const args: Omit<VCBoxArgs, "dbName"> = {
 		walletSecret: process.env.MNEMONIC!,
 		chains: [
@@ -145,7 +84,10 @@ test("verify credential hardhat", async (t) => {
 });
 
 test("verify credential hardhat with new provider", async (t) => {
-	// console.log(process.env);
+	if (process.env.CI) {
+		t.pass("Cant test local network in CI");
+		return;
+	}
 	const args: Omit<VCBoxArgs, "dbName"> = {
 		walletSecret: process.env.MNEMONIC!,
 		chains: [
@@ -207,17 +149,77 @@ test("verify credential hardhat with new provider", async (t) => {
 	await verifier.removeStore();
 });
 
-test("verify credential goerli with new provider", async (t) => {
-	// console.log(process.env);
+test("verify credential goerli", async (t) => {
 	const args: Omit<VCBoxArgs, "dbName"> = {
 		walletSecret: process.env.MNEMONIC!,
 		chains: [
 			{
 				default: true,
 				chainId: 5,
-				provider: new ethers.providers.JsonRpcProvider(
-					"https://eth-goerli.g.alchemy.com/v2/MWv0hh54YO82ISYuwhzpQdn8BbwwheJt",
-				),
+				provider: {
+					url: process.env.RPC_GOERLI!,
+				},
+			},
+		],
+	};
+	const issuer = await VCIssuer.init({
+		...args,
+		dbName: `${t.title}-issuer`,
+	});
+	const vc = await issuer.createVC({
+		"@context": [
+			"https://www.w3.org/2018/credentials/v1",
+			"https://www.symfoni.dev/credentials/v1",
+		],
+		type: ["VerifiableCredential", "NorwegianIdNumber"],
+		credentialSubject: {
+			identityNumber: "123456789",
+		},
+	});
+
+	const verifier = await VCVerifier.init({
+		...args,
+		dbName: `db-${t.title}-verifier`,
+	});
+
+	const verifyVC = await verifier.verifyVC({
+		credential: vc.proof.jwt,
+	});
+
+	if (verifyVC.error) {
+		t.log("Error verifying VC", verifyVC.error);
+	}
+
+	t.truthy(verifyVC.verified, "VC should be verified");
+	t.is(verifyVC.error, undefined, "No error should be thrown");
+
+	const vp = await issuer.createVP({
+		verifiableCredential: [vc.proof.jwt],
+	});
+	const verifyVP = await verifier.verifyVP({
+		presentation: vp.proof.jwt,
+		policies: {
+			audience: false,
+		},
+	});
+	if (verifyVP.error) {
+		t.log("Error verifying VP", verifyVP);
+	}
+
+	t.truthy(verifyVP.verified, "VP should be verified");
+	t.is(verifyVP.error, undefined, "No error should be thrown");
+	await issuer.removeStore();
+	await verifier.removeStore();
+});
+
+test("verify credential goerli with new provider", async (t) => {
+	const args: Omit<VCBoxArgs, "dbName"> = {
+		walletSecret: process.env.MNEMONIC!,
+		chains: [
+			{
+				default: true,
+				chainId: 5,
+				provider: new ethers.providers.JsonRpcProvider(process.env.RPC_GOERLI!),
 			},
 		],
 	};

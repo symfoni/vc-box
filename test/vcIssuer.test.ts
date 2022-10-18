@@ -13,43 +13,6 @@ test.before("load env", (t) => {
 		}
 	}
 });
-test("init with JsonRpcProvider", async (t) => {
-	const vcBox = await VCIssuer.init({
-		dbName: "test",
-		walletSecret: process.env.MNEMONIC!,
-		chains: [
-			{
-				default: true,
-				chainId: parseInt(process.env.CHAIN_ID!),
-				provider: new ethers.providers.JsonRpcProvider(process.env.RPC!),
-				didRegistry: process.env.DID_REGISTRY
-					? process.env.DID_REGISTRY
-					: undefined,
-			},
-		],
-	});
-
-	t.truthy(vcBox);
-});
-test("init with string provider", async (t) => {
-	const vcBox = await VCIssuer.init({
-		dbName: "test",
-		walletSecret: process.env.MNEMONIC!,
-		chains: [
-			{
-				default: true,
-				chainId: parseInt(process.env.CHAIN_ID!),
-				provider: { url: process.env.RPC as string },
-				didRegistry: process.env.DID_REGISTRY
-					? process.env.DID_REGISTRY
-					: undefined,
-			},
-		],
-	});
-
-	t.truthy(vcBox);
-});
-
 test("issue credential", async (t) => {
 	const issuer = await VCIssuer.init({
 		dbName: "test",
@@ -57,11 +20,8 @@ test("issue credential", async (t) => {
 		chains: [
 			{
 				default: true,
-				chainId: parseInt(process.env.CHAIN_ID!),
-				provider: new ethers.providers.JsonRpcProvider(process.env.RPC!),
-				didRegistry: process.env.DID_REGISTRY
-					? process.env.DID_REGISTRY
-					: undefined,
+				chainId: 5,
+				provider: new ethers.providers.JsonRpcProvider(process.env.RPC_GOERLI!),
 			},
 		],
 	});
