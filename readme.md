@@ -1,3 +1,6 @@
+[![Lib test](https://github.com/symfoni/vc-tools/actions/workflows/test.yml/badge.svg)](https://github.com/symfoni/vc-tools/actions/workflows/test.yml)
+![npm](https://img.shields.io/npm/dm/@symfoni/vc-tools)
+![node-current (scoped)](https://img.shields.io/node/v/@symfoni/vc-tools)
 # Welcome to Symfoni Verfiable Credentials tools.
 
 A library for issuing and verifying verifiable credentials. Based on [Veramo](https://veramo.io/).
