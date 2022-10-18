@@ -8,13 +8,13 @@ import { VCBoxArgs } from "./types.js";
 import { VCBox, VeramoAgent } from "./vc-box.js";
 
 export class VCVerifier extends VCBox {
-	constructor(agent: VeramoAgent, identifier: IIdentifier) {
-		super(agent, identifier);
+	constructor(agent: VeramoAgent, identifier: IIdentifier, dbName: string) {
+		super(agent, identifier, dbName);
 	}
 
 	static async init(args: VCBoxArgs) {
 		const { agent, identifier } = await super.setup(args);
-		return new VCVerifier(agent, identifier);
+		return new VCVerifier(agent, identifier, args.dbName);
 	}
 	async verifyVP(args: IVerifyPresentationArgs): Promise<IVerifyResult> {
 		return this.agent.verifyPresentation(args);

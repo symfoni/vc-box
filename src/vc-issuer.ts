@@ -7,13 +7,13 @@ import { VCBoxArgs } from "./types.js";
 import { VCBox, VeramoAgent } from "./vc-box.js";
 
 export class VCIssuer extends VCBox {
-	constructor(agent: VeramoAgent, identifier: IIdentifier) {
-		super(agent, identifier);
+	constructor(agent: VeramoAgent, identifier: IIdentifier, dbName: string) {
+		super(agent, identifier, dbName);
 	}
 
 	static async init(args: VCBoxArgs) {
 		const { agent, identifier } = await super.setup(args);
-		return new VCIssuer(agent, identifier);
+		return new VCIssuer(agent, identifier, args.dbName);
 	}
 
 	async createVC(_credential: Partial<CredentialPayload>) {

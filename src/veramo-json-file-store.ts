@@ -98,4 +98,8 @@ export class JsonFileStore implements VeramoJsonStore {
 		const file = await fs.promises.open(this.filePath, "w+");
 		await file.close();
 	}
+
+	static async remove(file: fs.PathLike) {
+		await fs.promises.unlink(file);
+	}
 }

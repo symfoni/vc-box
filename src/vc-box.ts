@@ -68,9 +68,11 @@ export type VeramoAgent = TAgent<AgentConfig>;
 export class VCBox {
 	protected agent: VeramoAgent;
 	protected identifier: IIdentifier;
-	constructor(agent: VeramoAgent, identifier: IIdentifier) {
+	protected dbName: string;
+	constructor(agent: VeramoAgent, identifier: IIdentifier, dbName: string) {
 		this.agent = agent;
 		this.identifier = identifier;
+		this.dbName = dbName;
 	}
 
 	protected static async setup(args: VCBoxArgs) {
@@ -92,6 +94,18 @@ export class VCBox {
 			{ alias: args.walletAlias },
 		);
 		return { agent, identifier };
+	}
+
+	public async removeStore() {
+		if (global["window"] !== undefined && global.window.localStorage) {
+			const item = global.window.localStorage.getItem(this.dbName);
+			if (item) {
+				global.window.localStorage.removeItem(this.dbName);
+			}
+			return BrowserLocalStorageStore.fromLocalStorage(this.dbName);
+		} else {
+			return await JsonFileStore.remove(`${this.dbName}.json`);
+		}
 	}
 
 	private static async getStore(dbName: string) {
