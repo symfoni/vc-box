@@ -96,10 +96,10 @@ export class VCBox {
 	}
 
 	public async removeStore() {
-		if (global["window"] !== undefined && global.window.localStorage) {
-			const item = global.window.localStorage.getItem(this.dbName);
+		if (globalThis["window"] !== undefined && globalThis.window.localStorage) {
+			const item = globalThis.window.localStorage.getItem(this.dbName);
 			if (item) {
-				global.window.localStorage.removeItem(this.dbName);
+				globalThis.window.localStorage.removeItem(this.dbName);
 			}
 			return BrowserLocalStorageStore.fromLocalStorage(this.dbName);
 		} else {
@@ -109,7 +109,7 @@ export class VCBox {
 	}
 
 	private static async getStore(dbName: string) {
-		if (global["window"] !== undefined && global.window.localStorage) {
+		if (globalThis["window"] !== undefined && globalThis.window.localStorage) {
 			return BrowserLocalStorageStore.fromLocalStorage(dbName);
 		} else {
 			const { JsonFileStore } = await import("./veramo-json-file-store.js");
