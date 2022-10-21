@@ -50,7 +50,6 @@ import {
 } from "@veramo/data-store-json";
 import { Chain, VCBoxArgs } from "./types.js";
 import { namespace, walletFromSecret } from "./utils.js";
-import { JsonFileStore } from "./veramo-json-file-store.js";
 
 import ethrResolver from "ethr-did-resolver";
 import { Resolver } from "did-resolver";
@@ -104,6 +103,7 @@ export class VCBox {
 			}
 			return BrowserLocalStorageStore.fromLocalStorage(this.dbName);
 		} else {
+			const { JsonFileStore } = await import("./veramo-json-file-store.js");
 			return await JsonFileStore.remove(`${this.dbName}.json`);
 		}
 	}
@@ -112,6 +112,7 @@ export class VCBox {
 		if (global["window"] !== undefined && global.window.localStorage) {
 			return BrowserLocalStorageStore.fromLocalStorage(dbName);
 		} else {
+			const { JsonFileStore } = await import("./veramo-json-file-store.js");
 			return await JsonFileStore.fromFile(`${dbName}.json`);
 		}
 	}
