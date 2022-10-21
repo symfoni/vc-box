@@ -10,7 +10,7 @@ import {
 	VeramoJsonStore,
 } from "@veramo/data-store-json";
 import { ManagedPrivateKey } from "@veramo/key-manager";
-import * as fs from "fs";
+// import * as fs from "fs";
 //   import { IIdentifier, IMessage, ManagedKeyInfo } from '../../packages/core/src'
 //   import { ManagedPrivateKey } from '../../packages/key-manager/src'
 
@@ -19,7 +19,7 @@ import * as fs from "fs";
  * This is not recommended for large databases since every write operation rewrites the entire database.
  */
 export class JsonFileStore implements VeramoJsonStore {
-	private filePath: fs.PathLike;
+	private filePath: string;
 	notifyUpdate: DiffCallback;
 	dids: Record<string, IIdentifier>;
 	keys: Record<string, ManagedKeyInfo>;
@@ -29,7 +29,7 @@ export class JsonFileStore implements VeramoJsonStore {
 	presentations: Record<string, PresentationTableEntry>;
 	messages: Record<string, IMessage>;
 
-	private constructor(filePath: fs.PathLike) {
+	private constructor(filePath: string) {
 		this.filePath = filePath;
 		this.notifyUpdate = async (
 			_oldState: VeramoJsonCache,
@@ -46,14 +46,15 @@ export class JsonFileStore implements VeramoJsonStore {
 		this.messages = {};
 	}
 
-	public static async fromFile(file: fs.PathLike): Promise<JsonFileStore> {
+	public static async fromFile(file: string): Promise<JsonFileStore> {
 		const store = new JsonFileStore(file);
 		return await store.load();
 	}
 
 	private async load(): Promise<JsonFileStore> {
 		await this.checkFile();
-		const rawCache = await fs.promises.readFile(this.filePath, {
+		const { readFile } = await import("fs/promises");
+		const rawCache = await readFile(this.filePath, {
 			encoding: "utf8",
 		});
 		let cache: VeramoJsonCache;
@@ -89,17 +90,20 @@ export class JsonFileStore implements VeramoJsonStore {
 	}
 
 	private async save(newState: VeramoJsonCache): Promise<void> {
-		await fs.promises.writeFile(this.filePath, JSON.stringify(newState), {
+		const { writeFile } = await import("fs/promises");
+		await writeFile(this.filePath, JSON.stringify(newState), {
 			encoding: "utf8",
 		});
 	}
 
 	private async checkFile() {
-		const file = await fs.promises.open(this.filePath, "w+");
+		const { open } = await import("fs/promises");
+		const file = await open(this.filePath, "w+");
 		await file.close();
 	}
 
-	static async remove(file: fs.PathLike) {
-		await fs.promises.unlink(file);
+	static async remove(file: string) {
+		const { unlink } = await import("fs/promises");
+		await unlink(file);
 	}
 }
