@@ -53,8 +53,8 @@ import { namespace, walletFromSecret } from "./utils.js";
 import { JsonFileStore } from "./veramo-json-file-store.js";
 
 import ethrResolver from "ethr-did-resolver";
+import { Resolver } from "did-resolver";
 import { ethers } from "ethers";
-// import { getResolver } from "@symfoni/ethr-did-resolver";
 
 export type AgentConfig = IDIDManager &
 	IKeyManager &
@@ -176,9 +176,6 @@ export class VCBox {
 			throw Error("No default chain provided, one chain must be default");
 		}
 
-		const didResolver = await import("@symfoni/did-resolver");
-		// const ethrResolver = await import("ethr-did-resolver");
-
 		return {
 			plugins: [
 				new KeyManager({
@@ -216,7 +213,7 @@ export class VCBox {
 					messageHandlers: [new W3cMessageHandler(), new JwtMessageHandler()],
 				}),
 				new DIDResolverPlugin({
-					resolver: new didResolver.Resolver({
+					resolver: new Resolver({
 						...ethrResolver.getResolver({
 							networks: chains.map((chain) => ({
 								chainId: chain.chainId.toString(),

@@ -28,10 +28,11 @@
     "useDefineForClassFields": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "outDir": "dist"
+    "outDir": "lol"
   },
   "compileOnSave": false,
   "include": [
-    "src"
+    "src",
+    "test"
   ]
 }

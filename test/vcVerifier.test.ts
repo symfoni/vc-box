@@ -5,6 +5,7 @@ import { VCIssuer, VCVerifier } from "../src/index.js";
 import { VCBoxArgs } from "../src/types.js";
 
 test.before("load env", (t) => {
+	t.log("LOL");
 	if (process.env.CI) {
 		t.pass("In test env");
 	} else {
@@ -14,6 +15,8 @@ test.before("load env", (t) => {
 		}
 	}
 });
+
+const LOCAL_PROVIDER_URL = "http://127.0.0.1:8545/";
 
 test("verify credential hardhat", async (t) => {
 	if (process.env.CI) {
@@ -28,7 +31,7 @@ test("verify credential hardhat", async (t) => {
 				chainId: 31337,
 				didRegistry: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
 				provider: {
-					url: "http://localhost:8545",
+					url: LOCAL_PROVIDER_URL,
 				},
 			},
 		],
@@ -95,7 +98,7 @@ test("verify credential hardhat with new provider", async (t) => {
 				default: true,
 				chainId: 31337,
 				didRegistry: "0x5FbDB2315678afecb367f032d93F642f64180aa3",
-				provider: new ethers.providers.JsonRpcProvider("http://localhost:8545"),
+				provider: new ethers.providers.JsonRpcProvider(LOCAL_PROVIDER_URL),
 			},
 		],
 	};
