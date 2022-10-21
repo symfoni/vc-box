@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    // Disabled because of https://github.com/Microsoft/TypeScript/issues/29172
-    // "outDir": "dist",
     "module": "node16",
     "moduleResolution": "node16",
     "moduleDetection": "force",
@@ -30,5 +28,10 @@
     "useDefineForClassFields": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-  }
+    "outDir": "dist"
+  },
+  "compileOnSave": false,
+  "include": [
+    "src"
+  ]
 }

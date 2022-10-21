@@ -3,15 +3,23 @@
   "version": "0.0.16",
   "description": "",
   "type": "module",
-  "exports": "./dist/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "files": [
     "dist"
   ],
   "scripts": {
     "test": "pnpm ava",
     "watch": "pnpm tsc --watch",
-    "build": "tsc --project tsconfig.build.json",
+    "build": "tsup src/index.ts --format cjs,esm",
     "release": "pnpm build && pnpm release-it -- patch"
   },
   "keywords": [],
@@ -63,6 +71,7 @@
     "jsdom": "^20.0.1",
     "release-it": "^15.5.0",
     "ts-node": "^10.9.1",
+    "tsup": "^6.3.0",
     "typescript": "^4.8.4"
   },
   "pnpm": {
