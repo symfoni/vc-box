@@ -25,7 +25,9 @@ On Goerli
 			{
 				default: true,
 				chainId: 5,
-				provider: "https://eth-goerli.g.alchemy.com/v2/YOUR_ALCHEMY_APP_KEY",
+				provider: {
+					url: "https://eth-goerli.g.alchemy.com/v2/YOUR_ALCHEMY_APP_KEY"
+				},
 			},
 		],
 	});
@@ -51,7 +53,9 @@ On Goerli
 			{
 				default: true,
 				chainId: 5,
-				provider: "https://eth-goerli.g.alchemy.com/v2/YOUR_ALCHEMY_APP_KEY",
+				provider: {
+					url: "https://eth-goerli.g.alchemy.com/v2/YOUR_ALCHEMY_APP_KEY"
+				},
 			},
 		],
 	});
