@@ -65,8 +65,8 @@ export type AgentConfig = IDIDManager &
 export type VeramoAgent = TAgent<AgentConfig>;
 
 export class VCBox {
-	protected agent: VeramoAgent;
-	protected identifier: IIdentifier;
+	public readonly agent: VeramoAgent;
+	public readonly identifier: IIdentifier;
 	protected dbName: string;
 	constructor(agent: VeramoAgent, identifier: IIdentifier, dbName: string) {
 		this.agent = agent;
