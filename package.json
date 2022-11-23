@@ -16,6 +16,12 @@
   "files": [
     "dist"
   ],
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false,
+    "fs/promises": false
+  },
   "scripts": {
     "test": "pnpm ava",
     "watch": "pnpm tsc --watch",
