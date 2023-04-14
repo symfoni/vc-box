@@ -14,14 +14,24 @@ test.before("load env", (t) => {
 	}
 });
 test("issue credential", async (t) => {
+	const SECRET = process.env.MNEMONIC;
+	if (!SECRET) {
+		t.fail("No mnemonic set");
+		throw new Error("No mnemonic set");
+	}
+	const RPC_URL = process.env.RPC_URL;
+	if (!RPC_URL) {
+		t.fail("No RPC URL set");
+		throw new Error("No RPC URL set");
+	}
 	const issuer = await VCIssuer.init({
 		dbName: "test",
-		walletSecret: process.env.MNEMONIC!,
+		walletSecret: SECRET,
 		chains: [
 			{
 				default: true,
 				chainId: 5,
-				provider: new ethers.providers.JsonRpcProvider(process.env.RPC_GOERLI!),
+				provider: new ethers.providers.JsonRpcProvider(RPC_URL),
 			},
 		],
 	});

@@ -42,5 +42,21 @@ jobs:
       - name: Test
         run: pnpm test
         env:
-          RPC_GOERLI: ${{ secrets.RPC_GOERLI }}
+          RPC_URL: ${{ secrets.RPC_URL }}
           MNEMONIC: test test test test test test test test test test test junk
+  publish-gpr:
+    needs: cache-and-install
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+      - run: pnpm ci
+      - run: pnpm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
