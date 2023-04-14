@@ -1,7 +1,10 @@
 {
   "name": "@symfoni/vc-tools",
-  "version": "0.0.24",
+  "version": "0.0.25",
   "description": "",
+  "publishConfig": {
+    "@robertosnap:registry": "https://npm.pkg.github.com"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
