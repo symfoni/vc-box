@@ -44,6 +44,10 @@ jobs:
         env:
           RPC_URL: ${{ secrets.RPC_URL }}
           MNEMONIC: test test test test test test test test test test test junk
+
+      - name: Build
+        run: pnpm build
+
   publish-package:
     needs: cache-and-install
     runs-on: ubuntu-latest
