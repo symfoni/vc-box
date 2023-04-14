@@ -2,10 +2,13 @@
   "name": "@symfoni/vc-tools",
   "version": "0.0.28",
   "description": "",
-  "publishConfig": {
-    "@robertosnap:registry": "https://npm.pkg.github.com"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/symfoni/vc-tools"
   },
-  "repository": "https://github.com/symfoni/vc-tools",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
