@@ -6,3 +6,4 @@ tests-examples
 .env
 dist
 test.json
+.DS_Store

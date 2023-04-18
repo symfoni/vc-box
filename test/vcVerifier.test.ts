@@ -31,8 +31,9 @@ test("verify credential goerli", async (t) => {
 		chains: [
 			{
 				default: true,
-				chainId: 5,
+				chainId: 421613,
 				provider: new ethers.providers.JsonRpcProvider(RPC_URL),
+				didRegistry: "0x8FFfcD6a85D29E9C33517aaf60b16FE4548f517E",
 			},
 		],
 	};
@@ -70,6 +71,7 @@ test("verify credential goerli", async (t) => {
 	const vp = await issuer.createVP({
 		verifiableCredential: [vc.proof.jwt],
 	});
+
 	const verifyVP = await verifier.verifyVP({
 		presentation: vp.proof.jwt,
 		policies: {
@@ -102,8 +104,9 @@ test("verify credential goerli with new provider", async (t) => {
 		chains: [
 			{
 				default: true,
-				chainId: 5,
+				chainId: 421613,
 				provider: new ethers.providers.JsonRpcProvider(RPC_URL),
+				didRegistry: "0x8FFfcD6a85D29E9C33517aaf60b16FE4548f517E",
 			},
 		],
 	};
