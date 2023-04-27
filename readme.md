@@ -7,10 +7,33 @@ A library for issuing and verifying verifiable credentials. Based on [Veramo](ht
 
 
 # Who uses @symfoni/vc-tools
-...
+
+## In experimental testing
+
+* The Norwegian Central Bank
+
+[CDBC - Central Bank Digital Currency](https://www.norges-bank.no/en/Research/Research-projects/Central-bank-digital-currency/) - 
+with verifiable credentials (VC) used for authentication and KYC.
+The authentication is done with IDporten and the VC is issued by a dummy Digdir agent (represented by the central bank).
+The VC is sent to the user's wallet often called the Holder. The user presents the VC to their bank to have their wallet authenticated for use with the CDBC.
+The source code for the CDBC will be released in Q2 2023.
+
+* The Norwegian Business Registry (BR)
+
+Uses Symfoni for Organizational Digital Identity ("ODI").
+BR issues a Chairman of the board VC. Authentication is done with BankID. The user's wallet can then be used to sign documents on behalf of the company.
+
+## In academia
+
+* Bachelor thesis with NAV (Norwegian Labour and Welfare Administration) - Norwegian University of Science and Technology
+
+TODO Add link to thesis, github, video and digi
 
 # How It Works
-...
+
+Can be used by issuer, verifier and holder.
+
+TODO Convert to focusing on VC Issuer. 
 
 # Useage
 

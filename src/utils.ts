@@ -1,6 +1,7 @@
 import { ethers } from "ethers";
 import { Chain } from "./types.js";
 
+// Check if the secret is a private key
 export function checkForPrivateKey(
 	secret: string,
 ): [true, string] | [false, undefined] {
@@ -14,6 +15,7 @@ export function checkForPrivateKey(
 	return [false, undefined];
 }
 
+// Check if the secret is a menemonic
 export function checkForMenemonic(
 	secret: string,
 ): [true, string] | [false, undefined] {
@@ -23,6 +25,7 @@ export function checkForMenemonic(
 	return [false, undefined];
 }
 
+// Check if the secret is a private key or menemonic
 export function walletFromSecret(secret: string): ethers.Wallet {
 	const [isPrivateKey, privateKey] = checkForPrivateKey(secret);
 	if (isPrivateKey) {
@@ -38,6 +41,7 @@ export function walletFromSecret(secret: string): ethers.Wallet {
 	);
 }
 
+// Returns the namespace for a given chain ID
 export function namespace(chain: Chain) {
 	return `did:ethr:${chain.chainId}`;
 }
