@@ -1,6 +1,6 @@
 {
   "name": "@symfoni/vc-tools",
-  "version": "0.0.32",
+  "version": "0.0.33",
   "description": "",
   "repository": {
     "type": "git",
@@ -26,7 +26,7 @@
     "test": "pnpm ava",
     "watch": "pnpm tsc --watch",
     "build": "tsup src/index.ts --format cjs,esm",
-    "release": "pnpm build && pnpm release-it -- patch --no-npm"
+    "release": "pnpm build && pnpm release-it -- patch"
   },
   "keywords": [],
   "author": "Robertosnap",
