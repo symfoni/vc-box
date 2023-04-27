@@ -30,9 +30,8 @@ test("issue credential", async (t) => {
 		chains: [
 			{
 				default: true,
-				chainId: 421613,
+				chainId: 5,
 				provider: new ethers.providers.JsonRpcProvider(RPC_URL),
-				didRegistry: "0x8FFfcD6a85D29E9C33517aaf60b16FE4548f517E",
 			},
 		],
 	});
