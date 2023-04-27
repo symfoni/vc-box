@@ -1,13 +1,10 @@
 {
   "name": "@symfoni/vc-tools",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "description": "",
   "repository": {
     "type": "git",
     "url": "https://github.com/symfoni/vc-tools"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "type": "module",
   "main": "./dist/index.js",
